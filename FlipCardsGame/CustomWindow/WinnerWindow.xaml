@@ -1,0 +1,64 @@
+﻿<Window x:Class="FlipCardsGame.CustomWindow.WinnerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FlipCardsGame.CustomWindow"
+        mc:Ignorable="d"
+        Title="WinnerWindow" MinWidth="600" MaxWidth="600" 
+        MinHeight="650" MaxHeight="650" 
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Image Source="/img/bgBannerWin.png" Margin="-68,0,-68,35"/>
+            <Label x:Name="lbGrName" FontSize="45" FontWeight="Bold" FontFamily="Chiller" Foreground="Gold" Margin="160,32,90,10"></Label>
+            <Image Source="/img/bgphaochucmung4.png"  RenderTransformOrigin="0.327,0.39"/>
+
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="242*"/>
+                <ColumnDefinition Width="17*"/>
+                <ColumnDefinition Width="341*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.Background>
+                <ImageBrush ImageSource="/img/bgTop1.png"/>
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="txtMessage" TextWrapping="Wrap" FontWeight="Bold" FontFamily="Segoe Print" Foreground="AliceBlue" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" Width="316" Height="189" Margin="142,42,0,0" Grid.ColumnSpan="3" />
+            <Image Source="/img/bgphaochucmung.png" Margin="-16,-80,1,404" RenderTransformOrigin="0.5,0.5">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-0.564"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Image Source="/img/bgphaochucmung2.png" Margin="-9,264,294,14" Grid.ColumnSpan="3"/>
+            <Image Source="/img/bgphaochucmung2.png" Margin="187,118,25,265" RenderTransformOrigin="0.327,0.39" Grid.Column="2"/>
+            <Image Source="/img/bgphaochucmung5.png" Margin="117,-53,95,415" RenderTransformOrigin="0.327,0.39" Grid.ColumnSpan="3"/>
+            <Image Source="/img/bgphaochucmung3.png" Margin="117,306,-35,-18" RenderTransformOrigin="0.327,0.39" Grid.Column="2" Grid.RowSpan="2">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="335.41"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+        </Grid>
+    </Grid>
+</Window>

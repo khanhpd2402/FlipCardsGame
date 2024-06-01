@@ -1,0 +1,74 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.21">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.21" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="img/mainBG.png" />
+    <Resource Include="img/MainMenuBackground.png" />
+    <Resource Include="img/gaobac.png" />
+    <Resource Include="img/gaoxanh.png" />
+    <Resource Include="img/gaohong.png" />
+    <Resource Include="img/gaoden.png" />
+    <Resource Include="img/gaovang.png" />
+    <Resource Include="img/tbQuestionBg.png" />
+    <Resource Include="img/BackGroundHome.png" />
+    <Resource Include="img/btnBgStone.png" />
+    <Resource Include="img/imgChoose.png" />
+    <Resource Include="img/bgGrName.png" />
+    <Resource Include="img/btnSubmitBg.png" />
+    <Resource Include="img/btnMainBg.png" />
+    <Resource Include="img/imgScore.png" />
+    <Resource Include="img/bgMessbox.png" />
+    <Resource Include="img/bgTitleMessbox.png" />
+    <Resource Include="img/bgOKMessbox.png" />
+    <Resource Include="img/bgBannerWin.png" />
+    <Resource Include="img/bgTop1.png" />
+    <Resource Include="img/bgphaochucmung.png" />
+    <Resource Include="img/bgphaochucmung2.png" />
+    <Resource Include="img/bgphaochucmung3.png" />
+    <Resource Include="img/bgphaochucmung4.png" />
+    <Resource Include="img/bgphaochucmung5.png" />
+    <Resource Include="img/chest_open.png" />
+    <Resource Include="img/chest_closed.png" />
+    <Resource Include="img/donghocat.png" />
+    <Resource Include="img/bgCancelMessbox.png" />
+    <Resource Include="img/card.png" />
+    <Resource Include="img/coins.png" />
+    <Resource Include="img/shield.png" />
+    <Resource Include="img/spear.png" />
+    <Resource Include="img/magnet.png" />
+    <Resource Include="img/money.png" />
+    <Resource Include="img/star.png" />
+    <Resource Include="img/crown.png" />
+    <Resource Include="img/box.png" />
+    <Resource Include="img/sword.png" />
+    <Resource Include="img/bomb.png" />
+    <Resource Include="img/potion.png" />
+    <Resource Include="img/clock.png" />
+    <Resource Include="img/diamond.png" />
+    <Resource Include="img/coin.png" />
+	  
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

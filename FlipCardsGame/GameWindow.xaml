@@ -1,0 +1,122 @@
+﻿<Window x:Class="FlipCardsGame.GameWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FlipCardsGame"
+        mc:Ignorable="d"
+         MinWidth="1100" MaxWidth="1100" 
+        MinHeight="700" MaxHeight="700"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None">
+    <Window.Background>
+        <ImageBrush ImageSource="img/BackGroundHome.png"/>
+    </Window.Background>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Canvas Grid.Row="0">
+            <!-- Hourglass image -->
+            <!-- Hourglass image -->
+            <Image x:Name="imgHourglass" Source="img/donghocat.png" HorizontalAlignment="Center" VerticalAlignment="Top" Width="39" Height="61" Canvas.Left="156" Canvas.Top="25">
+                <Image.RenderTransform>
+                    <RotateTransform x:Name="hourglassRotateTransform" CenterX="80" CenterY="80" />
+                </Image.RenderTransform>
+            </Image>
+            <!-- Timer TextBlock -->
+            <TextBlock x:Name="txtTimer" Text="60" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="30" Foreground="Black" Canvas.Left="222" Canvas.Top="67" FontFamily="Bahnschrift SemiBold" RenderTransformOrigin="0.563,0.833" />
+
+            <!-- Start Button -->
+            <Button x:Name="btnStart" Content="Start" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="btnStart_Click" Canvas.Left="10" Canvas.Top="104" />
+
+            <Button x:Name="btnBack" Width="121" Height="84"  BorderBrush="Transparent" Cursor="Hand" Click="btnBack_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Canvas.Left="10" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="10">
+                <Button.Background>
+                    <ImageBrush ImageSource="img/btnMainBg.png"/>
+                </Button.Background>
+                <Label x:Name="labelBack" FontSize="45" FontWeight="Bold" FontFamily="Chiller" Foreground="AliceBlue">Back</Label>
+            </Button>
+
+            <Button x:Name="btnGrName" Width="204" Height="104"  BorderBrush="Transparent"  Cursor="Hand" Click="btnGrName_Click" Canvas.Left="438" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="10">
+                <Button.Background>
+                    <ImageBrush ImageSource="img/bgGrName.png"/>
+                </Button.Background>
+                <TextBlock x:Name="txtGrName" Background="Transparent" FontSize="35"  FontWeight="Bold" FontFamily="Chiller" Foreground="Wheat" HorizontalAlignment="Left" VerticalAlignment="Center" Width="183" Height="58" RenderTransformOrigin="0.35,0.733"></TextBlock>
+            </Button>
+            <Button x:Name="btnContinue" Width="196" Height="86"  BorderBrush="Transparent"  Cursor="Hand" Click="btnContinue_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Canvas.Left="894" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="5">
+                <Button.Background>
+                    <ImageBrush ImageSource="img/btnMainBg.png"/>
+                </Button.Background>
+                <Label x:Name="labelContinue" FontSize="45" FontWeight="Bold" FontFamily="Chiller" Foreground="AliceBlue">Tiếp Tục</Label>
+            </Button>
+
+            <Grid Canvas.Top="119" Width="1084" Height="229" HorizontalAlignment="Center" Canvas.Left="10" VerticalAlignment="Top">
+                <Grid.Background>
+                    <ImageBrush ImageSource="img/btnBgStone.png"/>
+                </Grid.Background>
+                <Button x:Name="btnSubmit" Width="176" Height="60"  BorderBrush="Transparent"  Cursor="Hand" Click="btnSubmit_Click" Canvas.Left="914" Canvas.Top="15" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <Button.Background>
+                        <ImageBrush ImageSource="img/btnSubmitBg.png"/>
+                    </Button.Background>
+                    <Label x:Name="labelSubmit" FontSize="45" FontWeight="Bold" FontFamily="Chiller" Foreground="AliceBlue">Xác Nhận</Label>
+                </Button>
+                <TextBlock x:Name="txblQuestion" FontSize="26" 
+                           HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" TextWrapping="Wrap" Height="170" Width="828" Margin="144,63,0,0" FontFamily="Sitka Banner Semibold" Foreground="#FFFBFAFA"/>
+            </Grid>
+        </Canvas>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Button x:Name="btnAnwserA" Margin="10,20,10,10" BorderBrush="Transparent" Click="Button_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="img/tbQuestionBg.png"/>
+                    </Button.Background>
+                    <TextBlock x:Name="txblAnwserA" TextWrapping="Wrap" Foreground="AliceBlue" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" FontFamily="Sitka Banner Semibold" FontSize="26" Width="386" Height="89"></TextBlock>
+                </Button>
+                <Image x:Name="imgAnwserA" Source="img/imgChoose.png" Margin="-6,-8,447,56" Cursor="Hand" Visibility="Hidden"/>
+                <Label x:Name="labelA" FontSize="45" FontWeight="Bold" FontFamily="Chiller" Foreground="AliceBlue" Margin="275,0,214,117">A</Label>
+            </Grid>
+            <Grid Grid.Row="0" Grid.Column="1">
+                <Button x:Name="btnAnwserB" Margin="10,20,10,10" BorderBrush="Transparent" Click="Button_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="img/tbQuestionBg.png"/>
+                    </Button.Background>
+                    <TextBlock x:Name="txblAnwserB" TextWrapping="Wrap" Foreground="AliceBlue" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" FontFamily="Sitka Banner Semibold" FontSize="26" Width="386" Height="89"></TextBlock>
+                </Button>
+                <Image x:Name="imgAnwserB" Source="img/imgChoose.png" Margin="-6,-8,447,56" Cursor="Hand" Visibility="Hidden"/>
+                <Label x:Name="labelB" FontSize="45" FontWeight="Bold" FontFamily="Chiller" Foreground="AliceBlue" Margin="275,0,228,118">B</Label>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="0">
+                <Button x:Name="btnAnwserC" Margin="10,20,10,10" BorderBrush="Transparent" Click="Button_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="img/tbQuestionBg.png"/>
+                    </Button.Background>
+                    <TextBlock x:Name="txblAnwserC" TextWrapping="Wrap" Foreground="AliceBlue" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" FontFamily="Sitka Banner Semibold" FontSize="26" Width="386" Height="89"></TextBlock>
+                </Button>
+                <Image x:Name="imgAnwserC" Source="img/imgChoose.png" Margin="-6,-8,447,56" Cursor="Hand" Visibility="Hidden"/>
+                <Label x:Name="labelC" FontSize="45" FontWeight="Bold" FontFamily="Chiller" Foreground="AliceBlue" Margin="275,0,216,113">C</Label>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="1">
+
+                <Button x:Name="btnAnwserD" Margin="10,20,10,10" BorderBrush="Transparent" Click="Button_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="img/tbQuestionBg.png"/>
+                    </Button.Background>
+                    <TextBlock x:Name="txblAnwserD" TextWrapping="Wrap" Foreground="AliceBlue" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" FontFamily="Sitka Banner Semibold" FontSize="26" Width="386" Height="89"></TextBlock>
+                </Button>
+                <Image x:Name="imgAnwserD" Source="img/imgChoose.png" Margin="-6,-8,447,56" Cursor="Hand" Visibility="Hidden"/>
+                <Label x:Name="labelD" FontSize="45" FontWeight="Bold" FontFamily="Chiller" Foreground="AliceBlue" Margin="275,0,214,117">D</Label>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

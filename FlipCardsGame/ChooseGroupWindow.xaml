@@ -1,0 +1,54 @@
+﻿<Window x:Class="FlipCardsGame.ChooseGroupWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FlipCardsGame"
+        mc:Ignorable="d"
+         MinWidth="700" MaxWidth="700" 
+        MinHeight="600" MaxHeight="600"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Button x:Name="btnGr1" Grid.Row="1" Height="98"  BorderBrush="Transparent"  Cursor="Hand"  Click="btnGr_Click" Margin="136,12,136,10" >
+            <Button.Background>
+                <ImageBrush ImageSource="img/bgGrName.png"/>
+            </Button.Background>
+            <Label x:Name="labelGr1" FontSize="40" FontWeight="Bold" FontFamily="Chiller" Foreground="Wheat" Height="62" Width="119" Content="Nhóm 1"/>
+        </Button>
+        <Button x:Name="btnGr2" Grid.Row="2" Height="98"  BorderBrush="Transparent"  Cursor="Hand"  Click="btnGr_Click" Margin="136,11,136,11" >
+            <Button.Background>
+                <ImageBrush ImageSource="img/bgGrName.png"/>
+            </Button.Background>
+            <Label x:Name="labelGr2" FontSize="40" FontWeight="Bold" FontFamily="Chiller" Foreground="Wheat" Height="62" Width="119" Content="Nhóm 2"/>
+        </Button>
+        <Button x:Name="btnGr3" Grid.Row="3" Height="98"  BorderBrush="Transparent"  Cursor="Hand"  Click="btnGr_Click" Margin="136,10,136,12" >
+            <Button.Background>
+                <ImageBrush ImageSource="img/bgGrName.png"/>
+            </Button.Background>
+            <Label x:Name="labelGr3" FontSize="40" FontWeight="Bold" FontFamily="Chiller" Foreground="Wheat" Height="62" Width="119" Content="Nhóm 3"/>
+        </Button>
+        <Button x:Name="btnGr4" Grid.Row="4" Height="98"  BorderBrush="Transparent"  Cursor="Hand"  Click="btnGr_Click" Margin="136,0,136,22" >
+            <Button.Background>
+                <ImageBrush ImageSource="img/bgGrName.png"/>
+            </Button.Background>
+            <Label x:Name="labelGr4" FontSize="40" FontWeight="Bold" FontFamily="Chiller" Foreground="Wheat" Height="62" Width="119" Content="Nhóm 4"/>
+        </Button>
+        <Button x:Name="btnGr5" Grid.Row="5" Height="98"  BorderBrush="Transparent"  Cursor="Hand"  Click="btnGr_Click" Margin="136,3,136,19" >
+            <Button.Background>
+                <ImageBrush ImageSource="img/bgGrName.png"/>
+            </Button.Background>
+            <Label x:Name="labelGr5" FontSize="40" FontWeight="Bold" FontFamily="Chiller" Foreground="Wheat" Height="62" Width="119" Content="Nhóm 5"/>
+        </Button>
+    </Grid>
+</Window>

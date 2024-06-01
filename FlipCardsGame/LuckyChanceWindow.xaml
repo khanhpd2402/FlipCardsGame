@@ -1,0 +1,82 @@
+﻿<Window x:Class="FlipCardsGame.LuckyChanceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FlipCardsGame"
+        mc:Ignorable="d"
+        MinWidth="800" MaxWidth="800" 
+        MinHeight="600" MaxHeight="600"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True" Background="Transparent">
+    <Window.Resources>
+        <Storyboard x:Key="ShakeAnimation">
+            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)"
+                             From="-8" To="8" Duration="0:0:0.1" AutoReverse="True" RepeatBehavior="5x" />
+        </Storyboard>
+        <Storyboard x:Key="FadeInAnimation">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                             From="0.0" To="1.0" Duration="0:0:1" />
+        </Storyboard>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Image of the chest -->
+        <Image x:Name="imgChestClosed" Source="img/chest_closed.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="300"  >
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="0.19"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="-0.993"/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image x:Name="imgChestOpen" Source="img/chest_open.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="356" Height="449" Margin="268,0,0,0" Visibility="Hidden" Opacity="0.0" />
+
+        <!-- Image of the item -->
+        <Image x:Name="imgitem" Source="img/shield.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" Height="95" Margin="361,216,0,0" Visibility="Hidden"/>
+        <Image x:Name="imgitem2" Source="img/box.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="97" Height="76" Margin="361,219,0,0" Visibility="Hidden" />
+        <Image x:Name="imgitem3" Source="img/crown.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="95" Height="70" Margin="361,205,0,0" Visibility="Hidden"/>
+        <Image x:Name="imgitem4" Source="img/star.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="86" Height="86" Margin="370,187,0,0" Visibility="Hidden"/>
+        <Image x:Name="imgitem5" Source="img/magnet.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="86" Height="73" Margin="367,205,0,0" Visibility="Hidden"/>
+        <Image x:Name="imgitem6" Source="img/money.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" Height="95" Margin="367,178,0,0" Visibility="Hidden"/>
+        <Image x:Name="imgitem7" Source="img/spear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" Height="95" Margin="385,170,0,0" Visibility="Hidden"/>
+        <Image x:Name="imgitem8" Source="img/sword.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" Height="95" Margin="361,201,0,0" Visibility="Hidden"/>
+        <Image x:Name="imgitem9" Source="img/coins.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="87" Height="111" Margin="366,190,0,0" Visibility="Hidden"/>
+        <Image x:Name="imgitem10" Source="img/bomb.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="62" Height="95" Margin="367,181,0,0" Visibility="Hidden"/>
+        <Image x:Name="imgitem11" Source="img/potion.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="62" Height="95" Margin="373,185,0,0" Visibility="Hidden"/>
+        <Image x:Name="imgitem12" Source="img/card.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" Height="101" Margin="361,194,0,0" Visibility="Hidden"/>
+        <Image x:Name="imgitem13" Source="img/clock.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Height="89" Margin="364,196,0,0" Visibility="Hidden" />
+        <Image x:Name="imgitem14" Source="img/diamond.png" HorizontalAlignment="Center" VerticalAlignment="Top" Width="62" Height="56" Margin="0,214,0,0" Visibility="Hidden"/>
+        <Image x:Name="imgitem15" Source="img/coin.png" HorizontalAlignment="Center" VerticalAlignment="Top" Width="68" Height="86" Margin="0,207,0,0" Visibility="Hidden"/>
+
+        <Grid Margin="10,0,465,310" Name="grChallenge" Visibility="Hidden">
+            <Grid.Background>
+                <ImageBrush ImageSource="img/bgMessbox.png"/>
+            </Grid.Background>
+            <TextBlock x:Name="txtChallenge" TextWrapping="Wrap" FontWeight="Bold" FontFamily="Segoe Print" Foreground="AliceBlue" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" Width="237" Height="197"/>
+        </Grid>
+
+
+        <!-- Button to trigger the reward -->
+        <Button x:Name="btnOpenChest"  Cursor="Hand" BorderBrush="Transparent" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,519,0,0" Click="btnOpenChest_Click" Width="124" Height="81">
+            <Button.Background>
+                <ImageBrush ImageSource="img/btnMainBg.png"/>
+            </Button.Background>
+            <Label x:Name="labelOpen" FontSize="45" FontWeight="Bold" FontFamily="Chiller" Foreground="AliceBlue" Width="84">Open</Label>
+        </Button>
+        <Button x:Name="btnContinue" Cursor="Hand" Visibility="Hidden" BorderBrush="Transparent" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,519,0,0" Click="btnContinue_Click" Width="200" Height="81">
+            <Button.Background>
+                <ImageBrush ImageSource="img/btnMainBg.png"/>
+            </Button.Background>
+            <Label x:Name="labeContinue" FontSize="45" FontWeight="Bold" FontFamily="Chiller" Foreground="AliceBlue" Width="141">Continue</Label>
+        </Button>
+    </Grid>
+</Window>

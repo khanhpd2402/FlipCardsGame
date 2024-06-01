@@ -1,0 +1,31 @@
+﻿<Window x:Class="FlipCardsGame.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FlipCardsGame"
+        mc:Ignorable="d"
+        Title="MainWindow" 
+        MinWidth="1000" MaxWidth="1000" 
+        MinHeight="600" MaxHeight="600"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        >
+    <Window.Background>
+        <ImageBrush ImageSource="img/mainBG.png"/>
+    </Window.Background>
+    <Canvas>
+        <Button x:Name="btnPlayMain" Width="140" Height="60"  BorderBrush="Transparent" Background="Transparent"  Margin="430,133,430,407" Cursor="Hand" Click="btnPlayMain_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+            <Label x:Name="labelPlayMain" FontSize="45" FontWeight="Bold" FontFamily="Chiller" Foreground="AliceBlue">Play</Label>
+        </Button>
+        <Button x:Name="btnGuide" Width="140" Height="60" BorderBrush="Transparent" Background="Transparent" Margin="430,240,430,300" Cursor="Hand" Click="btnGuide_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+            <Label x:Name="labelGuide" FontSize="46" FontWeight="Bold" FontFamily="Chiller" Foreground="AliceBlue">Guide</Label>
+        </Button>
+        <Button x:Name="btnAddQuestion" Width="140" Height="60" BorderBrush="Transparent" Background="Transparent" Margin="430,348,430,192" Click="btnAddQuestion_Click" Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+            <Label x:Name="labelAddQuestion" FontSize="32" FontWeight="Bold" FontFamily="Chiller" Foreground="AliceBlue">Add Question</Label>
+        </Button>
+        <Button x:Name="btnQuit" Width="140" Height="60" BorderBrush="Transparent" Background="Transparent" Margin="430,450,430,90" Cursor="Hand" Click="btnQuit_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+            <Label x:Name="labelQuit" FontSize="45" FontWeight="Bold" FontFamily="Chiller" Foreground="AliceBlue">Quit</Label>
+        </Button>
+    </Canvas>
+</Window>
