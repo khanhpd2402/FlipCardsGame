@@ -131,7 +131,7 @@ namespace FlipCardsGame
                var question = QuestionManager.Instance.GetRandomQuestion();
                 if (question == null)
                 {
-                    WinnerWindow.ShowWinner(InitialData.GetHighestScoringGroup());
+                    CustomMessageBox.Show("Hết câu hỏi rồi bạn ơi~~~");
                     return;
                 }
             }
@@ -185,6 +185,12 @@ namespace FlipCardsGame
             };
             fadeOutAnimation.Completed += (s, evt) => this.Close();
             this.BeginAnimation(Window.OpacityProperty, fadeOutAnimation);
+        }
+
+        private void btnEnd_Click(object sender, RoutedEventArgs e)
+        {
+            WinnerWindow.ShowWinner(InitialData.GetHighestScoringGroup());
+            this.Close();
         }
     }
 

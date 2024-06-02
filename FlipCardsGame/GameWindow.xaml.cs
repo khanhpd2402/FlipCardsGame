@@ -73,6 +73,7 @@ namespace FlipCardsGame
             StartHourglassAnimation();
             txtTimer.Visibility = Visibility.Visible;
             imgHourglass.Visibility = Visibility.Visible;
+            btnSubmit.Visibility = Visibility.Visible;
         }
 
         private void StartHourglassAnimation()
@@ -119,23 +120,6 @@ namespace FlipCardsGame
             txblAnwserC.Text = question.AnswerC;
             txblAnwserD.Text = question.AnswerD;
 
-        }
-        private void Button_MouseEnter(object sender, MouseEventArgs e)
-        {
-            if (sender is Button button && button.Content is Label label)
-            {
-                label.FontSize += 5; // Increase font size by 5
-                label.Foreground = new SolidColorBrush(Colors.Red); // Change color to Red
-            }
-        }
-
-        private void Button_MouseLeave(object sender, MouseEventArgs e)
-        {
-            if (sender is Button button && button.Content is Label label)
-            {
-                label.FontSize = 45; // Increase font size by 5
-                label.Foreground = new SolidColorBrush(Colors.AliceBlue); // Change color back to original
-            }
         }
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
@@ -202,11 +186,57 @@ namespace FlipCardsGame
         private void btnContinue_Click(object sender, RoutedEventArgs e)
         {
             QuestionManager.Instance.RemoveQuestion(QuestionManager.Instance.GetCurrentQuestion());
+            //mo playwindow neu ko doi nao trả loi dung
+            PlayWindow playWindow = new PlayWindow(_context);
+            playWindow.Loaded += (s, evt) =>
+            {
+                DoubleAnimation fadeInAnimation = new DoubleAnimation
+                {
+                    From = 0,
+                    To = 1,
+                    Duration = TimeSpan.FromSeconds(1.5)
+                };
+                (s as Window).BeginAnimation(Window.OpacityProperty, fadeInAnimation);
+            };
 
-            //mo chest
-            LuckyChanceWindow.ShowChest(_context);
+            playWindow.Show();
+
+            DoubleAnimation fadeOutAnimation = new DoubleAnimation
+            {
+                From = 1,
+                To = 0,
+                Duration = TimeSpan.FromSeconds(0.5)
+            };
+            fadeOutAnimation.Completed += (s, evt) => this.Close();
+            this.BeginAnimation(Window.OpacityProperty, fadeOutAnimation);
         }
+        private void btnChest_Click(object sender, RoutedEventArgs e)
+        {
+            QuestionManager.Instance.RemoveQuestion(QuestionManager.Instance.GetCurrentQuestion());
+            //mo chest
+            LuckyChanceWindow window = new LuckyChanceWindow(_context);
+            window.Loaded += (s, evt) =>
+            {
+                DoubleAnimation fadeInAnimation = new DoubleAnimation
+                {
+                    From = 0,
+                    To = 1,
+                    Duration = TimeSpan.FromSeconds(1.5)
+                };
+                (s as Window).BeginAnimation(Window.OpacityProperty, fadeInAnimation);
+            };
 
+            window.Show();
+
+            DoubleAnimation fadeOutAnimation = new DoubleAnimation
+            {
+                From = 1,
+                To = 0,
+                Duration = TimeSpan.FromSeconds(2)
+            };
+            fadeOutAnimation.Completed += (s, evt) => this.Close();
+            this.BeginAnimation(Window.OpacityProperty, fadeOutAnimation);
+        }
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
             bool result = CustomMessageBox.Show("Bạn chắc chưa :))?");
@@ -235,6 +265,12 @@ namespace FlipCardsGame
                     selectedAnswer = txblAnwserD.Text;
                     clickedButton = btnAnwserD;
                 }
+                else
+                {
+                    CustomMessageBox.Show("Bạn cần chọn 1 câu trả lời");
+                    return;
+                }
+                
                 // So sánh câu trả lời đã chọn với câu trả lời đúng
                 var currentQuestion = QuestionManager.Instance.GetCurrentQuestion(); // Giả sử bạn có phương thức này để lấy câu hỏi hiện tại
                 if (currentQuestion != null)
@@ -250,14 +286,15 @@ namespace FlipCardsGame
                         if (newGroupPlay == null || string.IsNullOrWhiteSpace(newGroupPlay.GroupName))
                         {
                             GroupPlayManager.Instance.UpdateScoreCurrentGroup(10);
-                            MessageBox.Show(GroupPlayManager.Instance.CurrentGroup.Score + " current");
                         }
                         // Nhóm thứ hai trả lời đúng
                         else
                         {
                             GroupPlayManager.Instance.UpdateScoreNewGroup(10);
-                            MessageBox.Show(GroupPlayManager.Instance.NewGroup.Score + " new");
                         }
+                        btnSubmit.Visibility = Visibility.Hidden;
+                        btnContinue.Visibility = Visibility.Hidden;
+                        btnChest.Visibility = Visibility.Visible;
                     }
                     else
                     {
@@ -268,15 +305,13 @@ namespace FlipCardsGame
                         if (newGroupPlay == null || string.IsNullOrWhiteSpace(newGroupPlay.GroupName))
                         {
                             GroupPlayManager.Instance.UpdateScoreCurrentGroup(-10);
-                            MessageBox.Show(GroupPlayManager.Instance.CurrentGroup.Score + " current");
+                            btnGrName.Click += btnGrName_Click;
                         }
                         // Nhóm thứ hai trả lời sai
                         else
                         {
                             GroupPlayManager.Instance.UpdateScoreCurrentGroup(10);
-                            MessageBox.Show(GroupPlayManager.Instance.CurrentGroup.Score + " current");
                             GroupPlayManager.Instance.UpdateScoreNewGroup(-20);
-                            MessageBox.Show(GroupPlayManager.Instance.NewGroup.Score + " new");
                         }
                     }
 

@@ -12,13 +12,50 @@
     <Window.Background>
         <ImageBrush ImageSource="img/MainMenuBackground.png"/>
     </Window.Background>
+
+    <Window.Resources>
+        <Style x:Key="CustomButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <!-- Click Effect -->
+                <EventTrigger RoutedEvent="PreviewMouseDown">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                     To="0.5" Duration="0:0:0"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="PreviewMouseUp">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                     To="1" Duration="0:0:0"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="150"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Canvas Grid.Row="0">
-            <Button x:Name="btnBack" Width="121" Height="84"  BorderBrush="Transparent" Cursor="Hand" Click="btnBack_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Canvas.Left="10" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="10">
+            <Button x:Name="btnBack" Style="{StaticResource CustomButtonStyle}" Width="121" Height="84"  BorderBrush="Transparent" Cursor="Hand" Click="btnBack_Click" Canvas.Left="10" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="10">
                 <Button.Background>
                     <ImageBrush ImageSource="img/btnMainBg.png"/>
                 </Button.Background>
@@ -44,7 +81,7 @@
                     <Image x:Name="imgScore1" Source="img/imgScore.png" Width="122" Height="49" Canvas.Left="41" Canvas.Top="10" HorizontalAlignment="Left" VerticalAlignment="Center" />
                     <Label x:Name="labelScore1" FontSize="24" FontWeight="Bold" FontFamily="Chiller" Foreground="Wheat" Height="32" Width="47" Canvas.Left="77" Canvas.Top="17" HorizontalAlignment="Left" VerticalAlignment="Center" Content="345"/>
                 </Canvas>
-                <Button x:Name="btnGr1"  Width="148" Height="98"  BorderBrush="Transparent"  Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Click="btnGr_Click" >
+                <Button x:Name="btnGr1" Style="{StaticResource CustomButtonStyle}" Width="148" Height="98"  BorderBrush="Transparent"  Cursor="Hand" Click="btnGr_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
                     <Button.Background>
                         <ImageBrush ImageSource="img/bgGrName.png"/>
                     </Button.Background>
@@ -57,7 +94,7 @@
                     <Image x:Name="imgScore2" Source="img/imgScore.png" Width="122" Height="49" Canvas.Left="41" Canvas.Top="10" HorizontalAlignment="Left" VerticalAlignment="Center" />
                     <Label x:Name="labelScore2" FontSize="24" FontWeight="Bold" FontFamily="Chiller" Foreground="Wheat" Height="32" Width="47" Canvas.Left="77" Canvas.Top="17" HorizontalAlignment="Left" VerticalAlignment="Center" Content="345"/>
                 </Canvas>
-                <Button x:Name="btnGr2"  Width="148" Height="98"  BorderBrush="Transparent"  Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Click="btnGr_Click" >
+                <Button x:Name="btnGr2" Style="{StaticResource CustomButtonStyle}" Width="148" Height="98"  BorderBrush="Transparent"  Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Click="btnGr_Click" >
                     <Button.Background>
                         <ImageBrush ImageSource="img/bgGrName.png"/>
                     </Button.Background>
@@ -67,10 +104,10 @@
             <StackPanel Grid.Column="2">
                 <Image Source="img/gaohong.png" Width="100" Height="100" Margin="10" Cursor="Hand" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" />
                 <Canvas Height="59">
-                    <Image x:Name="imgScore3" Source="img/imgScore.png" Width="122" Height="49" Canvas.Left="41" Canvas.Top="10" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                    <Image x:Name="imgScore3"  Source="img/imgScore.png" Width="122" Height="49" Canvas.Left="41" Canvas.Top="10" HorizontalAlignment="Left" VerticalAlignment="Center" />
                     <Label x:Name="labelScore3" FontSize="24" FontWeight="Bold" FontFamily="Chiller" Foreground="Wheat" Height="32" Width="47" Canvas.Left="77" Canvas.Top="17" HorizontalAlignment="Left" VerticalAlignment="Center" Content="345"/>
                 </Canvas>
-                <Button x:Name="btnGr3"  Width="148" Height="98"  BorderBrush="Transparent"  Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Click="btnGr_Click" >
+                <Button x:Name="btnGr3" Style="{StaticResource CustomButtonStyle}" Width="148" Height="98"  BorderBrush="Transparent"  Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Click="btnGr_Click" >
                     <Button.Background>
                         <ImageBrush ImageSource="img/bgGrName.png"/>
                     </Button.Background>
@@ -83,7 +120,7 @@
                     <Image x:Name="imgScore4" Source="img/imgScore.png" Width="122" Height="49" Canvas.Left="41" Canvas.Top="10" HorizontalAlignment="Left" VerticalAlignment="Center" />
                     <Label x:Name="labelScore4" FontSize="24" FontWeight="Bold" FontFamily="Chiller" Foreground="Wheat" Height="32" Width="47" Canvas.Left="77" Canvas.Top="17" HorizontalAlignment="Left" VerticalAlignment="Center" Content="345"/>
                 </Canvas>
-                <Button x:Name="btnGr4" Width="148" Height="98"  BorderBrush="Transparent"  Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Click="btnGr_Click" >
+                <Button x:Name="btnGr4" Style="{StaticResource CustomButtonStyle}" Width="148" Height="98"  BorderBrush="Transparent"  Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Click="btnGr_Click" >
                     <Button.Background>
                         <ImageBrush ImageSource="img/bgGrName.png"/>
                     </Button.Background>
@@ -96,7 +133,7 @@
                     <Image x:Name="imgScore5" Source="img/imgScore.png" Width="122" Height="49" Canvas.Left="41" Canvas.Top="10" HorizontalAlignment="Left" VerticalAlignment="Center" />
                     <Label x:Name="labelScore5" FontSize="24" FontWeight="Bold" FontFamily="Chiller" Foreground="Wheat" Height="32" Width="47" Canvas.Left="77" Canvas.Top="17" HorizontalAlignment="Left" VerticalAlignment="Center" Content="345"/>
                 </Canvas>
-                <Button x:Name="btnGr5"  Width="148" Height="98"  BorderBrush="Transparent"  Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Click="btnGr_Click" >
+                <Button x:Name="btnGr5" Style="{StaticResource CustomButtonStyle}" Width="148" Height="98"  BorderBrush="Transparent"  Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Click="btnGr_Click" >
                     <Button.Background>
                         <ImageBrush ImageSource="img/bgGrName.png"/>
                     </Button.Background>
@@ -104,6 +141,12 @@
                 </Button>
             </StackPanel>
         </Grid>
+        <Button x:Name="btnEnd" Style="{StaticResource CustomButtonStyle}" Height="98"  BorderBrush="Transparent"  Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Click="btnEnd_Click" Margin="824,343,10,-41" Grid.Row="1" >
+            <Button.Background>
+                <ImageBrush ImageSource="img/bgGrName.png"/>
+            </Button.Background>
+            <Label x:Name="labelEnd" FontSize="40" FontWeight="Bold" FontFamily="Chiller" Foreground="AliceBlue" Height="62" Width="142" Content="Kết Thúc"/>
+        </Button>
     </Grid>
 
 

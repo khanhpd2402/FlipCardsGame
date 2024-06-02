@@ -29,5 +29,15 @@ namespace FlipCardsGame.CustomWindow
             WinnerWindow winner = new WinnerWindow(groupPlay);
             winner.Show();
         }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            var result = CustomMessageBox.Show("Bạn có chắc chắn muốn thoát khỏi ứng dụng không?");
+
+            if (result)
+            {
+                Application.Current.Shutdown();
+            }
+        }
     }
 }

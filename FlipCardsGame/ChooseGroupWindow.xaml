@@ -10,6 +10,42 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent">
     
+    <Window.Resources>
+        <Style x:Key="CustomButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <!-- Click Effect -->
+                <EventTrigger RoutedEvent="PreviewMouseDown">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                     To="0.5" Duration="0:0:0"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="PreviewMouseUp">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                     To="1" Duration="0:0:0"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -19,32 +55,38 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <!-- close -->
+        <Button x:Name="btnClose" Style="{StaticResource CustomButtonStyle}" BorderBrush="Transparent"  Cursor="Hand"  Click="btnClose_Click" Height="30" Width="30" Margin="620,25,50,105" Grid.RowSpan="2" >
+            <Button.Background>
+                <ImageBrush ImageSource="img/close.png"/>
+            </Button.Background>
+        </Button>
 
-        <Button x:Name="btnGr1" Grid.Row="1" Height="98"  BorderBrush="Transparent"  Cursor="Hand"  Click="btnGr_Click" Margin="136,12,136,10" >
+        <Button x:Name="btnGr1" Style="{StaticResource CustomButtonStyle}" Grid.Row="1" Height="98"  BorderBrush="Transparent"  Cursor="Hand"  Click="btnGr_Click" Margin="136,12,136,10" >
             <Button.Background>
                 <ImageBrush ImageSource="img/bgGrName.png"/>
             </Button.Background>
             <Label x:Name="labelGr1" FontSize="40" FontWeight="Bold" FontFamily="Chiller" Foreground="Wheat" Height="62" Width="119" Content="Nhóm 1"/>
         </Button>
-        <Button x:Name="btnGr2" Grid.Row="2" Height="98"  BorderBrush="Transparent"  Cursor="Hand"  Click="btnGr_Click" Margin="136,11,136,11" >
+        <Button x:Name="btnGr2" Style="{StaticResource CustomButtonStyle}" Grid.Row="2" Height="98"  BorderBrush="Transparent"  Cursor="Hand"  Click="btnGr_Click" Margin="136,11,136,11" >
             <Button.Background>
                 <ImageBrush ImageSource="img/bgGrName.png"/>
             </Button.Background>
             <Label x:Name="labelGr2" FontSize="40" FontWeight="Bold" FontFamily="Chiller" Foreground="Wheat" Height="62" Width="119" Content="Nhóm 2"/>
         </Button>
-        <Button x:Name="btnGr3" Grid.Row="3" Height="98"  BorderBrush="Transparent"  Cursor="Hand"  Click="btnGr_Click" Margin="136,10,136,12" >
+        <Button x:Name="btnGr3" Style="{StaticResource CustomButtonStyle}" Grid.Row="3" Height="98"  BorderBrush="Transparent"  Cursor="Hand"  Click="btnGr_Click" Margin="136,10,136,12" >
             <Button.Background>
                 <ImageBrush ImageSource="img/bgGrName.png"/>
             </Button.Background>
             <Label x:Name="labelGr3" FontSize="40" FontWeight="Bold" FontFamily="Chiller" Foreground="Wheat" Height="62" Width="119" Content="Nhóm 3"/>
         </Button>
-        <Button x:Name="btnGr4" Grid.Row="4" Height="98"  BorderBrush="Transparent"  Cursor="Hand"  Click="btnGr_Click" Margin="136,0,136,22" >
+        <Button x:Name="btnGr4" Style="{StaticResource CustomButtonStyle}" Grid.Row="4" Height="98"  BorderBrush="Transparent"  Cursor="Hand"  Click="btnGr_Click" Margin="136,0,136,22" >
             <Button.Background>
                 <ImageBrush ImageSource="img/bgGrName.png"/>
             </Button.Background>
             <Label x:Name="labelGr4" FontSize="40" FontWeight="Bold" FontFamily="Chiller" Foreground="Wheat" Height="62" Width="119" Content="Nhóm 4"/>
         </Button>
-        <Button x:Name="btnGr5" Grid.Row="5" Height="98"  BorderBrush="Transparent"  Cursor="Hand"  Click="btnGr_Click" Margin="136,3,136,19" >
+        <Button x:Name="btnGr5" Style="{StaticResource CustomButtonStyle}" Grid.Row="5" Height="98"  BorderBrush="Transparent"  Cursor="Hand"  Click="btnGr_Click" Margin="136,3,136,19" >
             <Button.Background>
                 <ImageBrush ImageSource="img/bgGrName.png"/>
             </Button.Background>

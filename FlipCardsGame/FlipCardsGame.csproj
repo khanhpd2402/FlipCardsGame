@@ -62,6 +62,8 @@
     <Resource Include="img/clock.png" />
     <Resource Include="img/diamond.png" />
     <Resource Include="img/coin.png" />
+    <Resource Include="img/forest.png" />
+    <Resource Include="img/close.png" />
 	  
   </ItemGroup>
 

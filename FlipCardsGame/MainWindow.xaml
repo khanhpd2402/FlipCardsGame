@@ -14,17 +14,54 @@
     <Window.Background>
         <ImageBrush ImageSource="img/mainBG.png"/>
     </Window.Background>
+
+    <Window.Resources>
+        <Style x:Key="CustomButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <!-- Click Effect -->
+                <EventTrigger RoutedEvent="PreviewMouseDown">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                     To="0.5" Duration="0:0:0"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="PreviewMouseUp">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                     To="1" Duration="0:0:0"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    
     <Canvas>
-        <Button x:Name="btnPlayMain" Width="140" Height="60"  BorderBrush="Transparent" Background="Transparent"  Margin="430,133,430,407" Cursor="Hand" Click="btnPlayMain_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+        <Button x:Name="btnPlayMain" Style="{StaticResource CustomButtonStyle}" Width="140" Height="60"  BorderBrush="Transparent" Background="Transparent"  Margin="430,133,430,407" Cursor="Hand" Click="btnPlayMain_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
             <Label x:Name="labelPlayMain" FontSize="45" FontWeight="Bold" FontFamily="Chiller" Foreground="AliceBlue">Play</Label>
         </Button>
-        <Button x:Name="btnGuide" Width="140" Height="60" BorderBrush="Transparent" Background="Transparent" Margin="430,240,430,300" Cursor="Hand" Click="btnGuide_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+        <Button x:Name="btnGuide" Style="{StaticResource CustomButtonStyle}" Width="140" Height="60" BorderBrush="Transparent" Background="Transparent" Margin="430,240,430,300" Cursor="Hand" Click="btnGuide_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
             <Label x:Name="labelGuide" FontSize="46" FontWeight="Bold" FontFamily="Chiller" Foreground="AliceBlue">Guide</Label>
         </Button>
-        <Button x:Name="btnAddQuestion" Width="140" Height="60" BorderBrush="Transparent" Background="Transparent" Margin="430,348,430,192" Click="btnAddQuestion_Click" Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+        <Button x:Name="btnAddQuestion" Style="{StaticResource CustomButtonStyle}" Width="140" Height="60" BorderBrush="Transparent" Background="Transparent" Margin="430,348,430,192" Click="btnAddQuestion_Click" Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
             <Label x:Name="labelAddQuestion" FontSize="32" FontWeight="Bold" FontFamily="Chiller" Foreground="AliceBlue">Add Question</Label>
         </Button>
-        <Button x:Name="btnQuit" Width="140" Height="60" BorderBrush="Transparent" Background="Transparent" Margin="430,450,430,90" Cursor="Hand" Click="btnQuit_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+        <Button x:Name="btnQuit" Style="{StaticResource CustomButtonStyle}" Width="140" Height="60" BorderBrush="Transparent" Background="Transparent" Margin="430,450,430,90" Cursor="Hand" Click="btnQuit_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
             <Label x:Name="labelQuit" FontSize="45" FontWeight="Bold" FontFamily="Chiller" Foreground="AliceBlue">Quit</Label>
         </Button>
     </Canvas>

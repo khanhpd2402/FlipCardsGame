@@ -24,8 +24,8 @@ namespace FlipCardsGame
     public partial class LuckyChanceWindow : Window
     {
         private readonly QuizGameDBContext _context;
-        GroupPlay? _group;
-        Challenge? _challenge;
+        private GroupPlay? _group;
+        private Challenge? _challenge;
         public LuckyChanceWindow(QuizGameDBContext context)
         {
             InitializeComponent();
@@ -147,9 +147,6 @@ namespace FlipCardsGame
             // Xử lý điểm
             if (_challenge != null)
             {
-                // Hiển thị điểm trước khi thay đổi
-                MessageBox.Show($"Before: Current Group Score: {GroupPlayManager.Instance.CurrentGroup.Score}, New Group Score: {GroupPlayManager.Instance.NewGroup?.Score}");
-
                 string challengeType = _challenge.ChallengeType.ToLower(); // Đảm bảo không phân biệt hoa thường
 
                 if (challengeType == "coin" || challengeType == "coins" || challengeType == "diamond")
@@ -158,17 +155,18 @@ namespace FlipCardsGame
                 }
                 else if (challengeType == "spear")
                 {
-                    HandScore.SubtractPoints(groupLucky.GroupName, _challenge.ChallengeValue);
+                    if (_group != null)
+                        HandScore.SubtractPoints(_group.GroupName, _challenge.ChallengeValue);
                 }
                 else if (challengeType == "box")
                 {
                     if (_group != null)
-                        HandScore.TransferPointsBetweenTeams(_group.GroupName, groupLucky.GroupName, _challenge.ChallengeValue);
+                        HandScore.TransferPointsBetweenTeams(groupLucky.GroupName, _group.GroupName, _challenge.ChallengeValue);
                 }
                 else if (challengeType == "crown" || challengeType == "magnet")
                 {
                     if (_group != null)
-                        HandScore.TransferPointsBetweenTeams(groupLucky.GroupName, _group.GroupName, _challenge.ChallengeValue);
+                        HandScore.TransferPointsBetweenTeams(_group.GroupName, groupLucky.GroupName, _challenge.ChallengeValue);
                 }
                 else if (challengeType == "card")
                 {
@@ -177,13 +175,11 @@ namespace FlipCardsGame
                     toGroup.Score = groupLucky.Score;
                     groupLucky.Score = temp;
                 }
-
-                // Hiển thị điểm sau khi thay đổi
-                MessageBox.Show($"After: Current Group Score: {GroupPlayManager.Instance.CurrentGroup.Score}, New Group Score: {GroupPlayManager.Instance.NewGroup?.Score}");
             }
-
-            this.Close();
-
+            openPlayWindow();
+        }
+        private void openPlayWindow()
+        {
             // Mở PlayWindow
             PlayWindow window = new PlayWindow(_context);
             window.Loaded += (s, evt) =>
@@ -208,7 +204,6 @@ namespace FlipCardsGame
             fadeOutAnimation.Completed += (s, evt) => this.Close();
             this.BeginAnimation(Window.OpacityProperty, fadeOutAnimation);
         }
-
 
         public Challenge GetRandomChallenge()
         {
@@ -250,79 +245,95 @@ namespace FlipCardsGame
 
         private void btnitemSaved2_Click(object sender, RoutedEventArgs e)
         {
-            if (_challenge != null && _challenge.ChallengeType.Equals("magnet"))
-            {
-                //lay ra gr choi
-                var groupLucky = GroupPlayManager.Instance.NewGroup;
-                if (groupLucky == null || string.IsNullOrWhiteSpace(groupLucky.GroupName))
-                {
-                    groupLucky = GroupPlayManager.Instance.CurrentGroup;
-                }
-                HandScore.AddPoints(groupLucky.GroupName, _challenge.ChallengeValue);
-            }
-            this.Close();
+            //if (_challenge != null && _challenge.ChallengeType.Equals("magnet"))
+            //{
+            //    //lay ra gr choi
+            //    var groupLucky = GroupPlayManager.Instance.NewGroup;
+            //    if (groupLucky == null || string.IsNullOrWhiteSpace(groupLucky.GroupName))
+            //    {
+            //        groupLucky = GroupPlayManager.Instance.CurrentGroup;
+            //    }
+            //    HandScore.AddPoints(groupLucky.GroupName, _challenge.ChallengeValue);
+            //}   
+            //openPlayWindow();
+            openPlayWindow();
         }
 
         private void btnitemSaved1_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            openPlayWindow();
         }
 
         private void btnGr_Click(object sender, RoutedEventArgs e)
         {
-            //bat su kien xem button nao click
+            // Bắt sự kiện xem button nào được click
             Button clickedButton = sender as Button;
             if (clickedButton == null)
                 return;
 
-            Label associatedLabel = null;
+            var grName = "";
 
             switch (clickedButton.Name)
             {
                 case "btnGr1":
-                    associatedLabel = labelGr1;
+                    grName =  labelGr1.Content.ToString();
                     break;
                 case "btnGr2":
-                    associatedLabel = labelGr2;
+                    grName = labelGr2.Content.ToString();
                     break;
                 case "btnGr3":
-                    associatedLabel = labelGr3;
+                    grName = labelGr3.Content.ToString();
                     break;
                 case "btnGr4":
-                    associatedLabel = labelGr4;
+                    grName = labelGr4.Content.ToString();
                     break;
                 case "btnGr5":
-                    associatedLabel = labelGr5;
+                    grName = labelGr5.Content.ToString();
                     break;
                 default:
                     return;
             }
-            //handle set group play
-            var grName = associatedLabel.Content.ToString();
+            // Handle set group play
             _group = GroupPlayManager.Instance.GetGroupByName(grName);
-            grGr.Visibility = Visibility.Hidden;
+            ButtonHiden();
         }
+
 
         private void btnGrShow_Click(object sender, RoutedEventArgs e)
         {
-            if (grGr.Visibility == Visibility.Hidden)
-            {
-                HandleGroup();
-                grGr.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                grGr.Visibility = Visibility.Hidden;
-            }
+            // Toggle visibility of the group buttons
+            ToggleButtonVisibility();
+
+            // Hide the button for the current playing group
+            HandleGroup();
         }
+
+        private void ToggleButtonVisibility()
+        {
+            btnGr1.Visibility = btnGr1.Visibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
+            btnGr2.Visibility = btnGr2.Visibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
+            btnGr3.Visibility = btnGr3.Visibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
+            btnGr4.Visibility = btnGr4.Visibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
+            btnGr5.Visibility = btnGr5.Visibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
+        }
+        private void ButtonHiden()
+        {
+            btnGr1.Visibility = Visibility.Hidden;
+            btnGr2.Visibility = Visibility.Hidden;
+            btnGr3.Visibility =  Visibility.Hidden;
+            btnGr4.Visibility =  Visibility.Hidden;
+            btnGr5.Visibility = Visibility.Hidden;
+        }
+
         private void HandleGroup()
         {
-            var groupPlay = GroupPlayManager.Instance.NewGroup;
-            if (groupPlay == null)
+            // Lấy ra nhóm chơi
+            var groupLucky = GroupPlayManager.Instance.NewGroup;
+            if (groupLucky == null || string.IsNullOrWhiteSpace(groupLucky.GroupName))
             {
-                groupPlay = GroupPlayManager.Instance.CurrentGroup;
+                groupLucky = GroupPlayManager.Instance.CurrentGroup;
             }
-            if (groupPlay != null)
+            if (groupLucky != null)
             {
                 for (int i = 1; i <= 5; i++)
                 {
@@ -331,13 +342,9 @@ namespace FlipCardsGame
 
                     if (label != null && button != null)
                     {
-                        switch (label.Content)
+                        if (label.Content.Equals(groupLucky.GroupName))
                         {
-                            case var groupName when groupName.Equals(groupPlay.GroupName):
-                                button.Visibility = Visibility.Hidden;
-                                break;
-                            default:
-                                break;
+                            button.Visibility = Visibility.Hidden;
                         }
                     }
                 }

@@ -12,6 +12,43 @@
     <Window.Background>
         <ImageBrush ImageSource="img/BackGroundHome.png"/>
     </Window.Background>
+
+    <Window.Resources>
+        <Style x:Key="CustomButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <!-- Click Effect -->
+                <EventTrigger RoutedEvent="PreviewMouseDown">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                     To="0.5" Duration="0:0:0"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="PreviewMouseUp">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                     To="1" Duration="0:0:0"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -20,42 +57,48 @@
         <Canvas Grid.Row="0">
             <!-- Hourglass image -->
             <!-- Hourglass image -->
-            <Image x:Name="imgHourglass" Source="img/donghocat.png" HorizontalAlignment="Center" VerticalAlignment="Top" Width="39" Height="61" Canvas.Left="156" Canvas.Top="25">
+            <Image x:Name="imgHourglass" Source="img/donghocat.png" Visibility="Hidden" HorizontalAlignment="Center" VerticalAlignment="Top" Width="39" Height="61" Canvas.Left="156" Canvas.Top="25">
                 <Image.RenderTransform>
                     <RotateTransform x:Name="hourglassRotateTransform" CenterX="80" CenterY="80" />
                 </Image.RenderTransform>
             </Image>
             <!-- Timer TextBlock -->
-            <TextBlock x:Name="txtTimer" Text="60" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="30" Foreground="Black" Canvas.Left="222" Canvas.Top="67" FontFamily="Bahnschrift SemiBold" RenderTransformOrigin="0.563,0.833" />
+            <TextBlock x:Name="txtTimer" Text="60" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="30" Foreground="Black" Canvas.Left="222" Canvas.Top="67" FontFamily="Bahnschrift SemiBold" RenderTransformOrigin="0.563,0.833" />
 
             <!-- Start Button -->
             <Button x:Name="btnStart" Content="Start" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="btnStart_Click" Canvas.Left="10" Canvas.Top="104" />
 
-            <Button x:Name="btnBack" Width="121" Height="84"  BorderBrush="Transparent" Cursor="Hand" Click="btnBack_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Canvas.Left="10" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="10">
+            <Button x:Name="btnBack" Style="{StaticResource CustomButtonStyle}" Width="121" Height="84"  BorderBrush="Transparent" Cursor="Hand" Click="btnBack_Click" Canvas.Left="10" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="10">
                 <Button.Background>
                     <ImageBrush ImageSource="img/btnMainBg.png"/>
                 </Button.Background>
                 <Label x:Name="labelBack" FontSize="45" FontWeight="Bold" FontFamily="Chiller" Foreground="AliceBlue">Back</Label>
             </Button>
 
-            <Button x:Name="btnGrName" Width="204" Height="104"  BorderBrush="Transparent"  Cursor="Hand" Click="btnGrName_Click" Canvas.Left="438" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="10">
+            <Button x:Name="btnGrName" Style="{StaticResource CustomButtonStyle}" Width="204" Height="104"  BorderBrush="Transparent"  Cursor="Hand" Canvas.Left="438" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="10">
                 <Button.Background>
                     <ImageBrush ImageSource="img/bgGrName.png"/>
                 </Button.Background>
                 <TextBlock x:Name="txtGrName" Background="Transparent" FontSize="35"  FontWeight="Bold" FontFamily="Chiller" Foreground="Wheat" HorizontalAlignment="Left" VerticalAlignment="Center" Width="183" Height="58" RenderTransformOrigin="0.35,0.733"></TextBlock>
             </Button>
-            <Button x:Name="btnContinue" Width="196" Height="86"  BorderBrush="Transparent"  Cursor="Hand" Click="btnContinue_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Canvas.Left="894" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="5">
+            <Button x:Name="btnContinue" Width="196" Height="86"  BorderBrush="Transparent"  Cursor="Hand" Click="btnContinue_Click"  Style="{StaticResource CustomButtonStyle}" Canvas.Left="894" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="5">
                 <Button.Background>
                     <ImageBrush ImageSource="img/btnMainBg.png"/>
                 </Button.Background>
                 <Label x:Name="labelContinue" FontSize="45" FontWeight="Bold" FontFamily="Chiller" Foreground="AliceBlue">Tiếp Tục</Label>
+            </Button>
+            <Button x:Name="btnChest" Visibility="Hidden" Width="291" Height="86"  BorderBrush="Transparent"  Cursor="Hand" Click="btnChest_Click" Style="{StaticResource CustomButtonStyle}" Canvas.Left="799" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="5">
+                <Button.Background>
+                    <ImageBrush ImageSource="img/btnMainBg.png"/>
+                </Button.Background>
+                <Label x:Name="labelChest" FontSize="45" FontWeight="Bold" FontFamily="Chiller" Foreground="AliceBlue">Phần Thưởng</Label>
             </Button>
 
             <Grid Canvas.Top="119" Width="1084" Height="229" HorizontalAlignment="Center" Canvas.Left="10" VerticalAlignment="Top">
                 <Grid.Background>
                     <ImageBrush ImageSource="img/btnBgStone.png"/>
                 </Grid.Background>
-                <Button x:Name="btnSubmit" Width="176" Height="60"  BorderBrush="Transparent"  Cursor="Hand" Click="btnSubmit_Click" Canvas.Left="914" Canvas.Top="15" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Button x:Name="btnSubmit" Style="{StaticResource CustomButtonStyle}" Visibility="Hidden" Width="176" Height="60"  BorderBrush="Transparent"  Cursor="Hand" Click="btnSubmit_Click" Canvas.Left="914" Canvas.Top="15" HorizontalAlignment="Center" VerticalAlignment="Top">
                     <Button.Background>
                         <ImageBrush ImageSource="img/btnSubmitBg.png"/>
                     </Button.Background>
@@ -66,7 +109,7 @@
             </Grid>
         </Canvas>
 
-        <Grid Grid.Row="1">
+        <Grid x:Name="grAnwser" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -77,7 +120,7 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Row="0" Grid.Column="0">
-                <Button x:Name="btnAnwserA" Margin="10,20,10,10" BorderBrush="Transparent" Click="Button_Click">
+                <Button x:Name="btnAnwserA" Style="{StaticResource CustomButtonStyle}" Margin="10,20,10,10" BorderBrush="Transparent" Click="Button_Click">
                     <Button.Background>
                         <ImageBrush ImageSource="img/tbQuestionBg.png"/>
                     </Button.Background>
@@ -87,7 +130,7 @@
                 <Label x:Name="labelA" FontSize="45" FontWeight="Bold" FontFamily="Chiller" Foreground="AliceBlue" Margin="275,0,214,117">A</Label>
             </Grid>
             <Grid Grid.Row="0" Grid.Column="1">
-                <Button x:Name="btnAnwserB" Margin="10,20,10,10" BorderBrush="Transparent" Click="Button_Click">
+                <Button x:Name="btnAnwserB" Style="{StaticResource CustomButtonStyle}" Margin="10,20,10,10" BorderBrush="Transparent" Click="Button_Click">
                     <Button.Background>
                         <ImageBrush ImageSource="img/tbQuestionBg.png"/>
                     </Button.Background>
@@ -97,7 +140,7 @@
                 <Label x:Name="labelB" FontSize="45" FontWeight="Bold" FontFamily="Chiller" Foreground="AliceBlue" Margin="275,0,228,118">B</Label>
             </Grid>
             <Grid Grid.Row="1" Grid.Column="0">
-                <Button x:Name="btnAnwserC" Margin="10,20,10,10" BorderBrush="Transparent" Click="Button_Click">
+                <Button x:Name="btnAnwserC" Style="{StaticResource CustomButtonStyle}" Margin="10,20,10,10" BorderBrush="Transparent" Click="Button_Click">
                     <Button.Background>
                         <ImageBrush ImageSource="img/tbQuestionBg.png"/>
                     </Button.Background>
@@ -107,8 +150,7 @@
                 <Label x:Name="labelC" FontSize="45" FontWeight="Bold" FontFamily="Chiller" Foreground="AliceBlue" Margin="275,0,216,113">C</Label>
             </Grid>
             <Grid Grid.Row="1" Grid.Column="1">
-
-                <Button x:Name="btnAnwserD" Margin="10,20,10,10" BorderBrush="Transparent" Click="Button_Click">
+                <Button x:Name="btnAnwserD" Style="{StaticResource CustomButtonStyle}" Margin="10,20,10,10" BorderBrush="Transparent" Click="Button_Click">
                     <Button.Background>
                         <ImageBrush ImageSource="img/tbQuestionBg.png"/>
                     </Button.Background>

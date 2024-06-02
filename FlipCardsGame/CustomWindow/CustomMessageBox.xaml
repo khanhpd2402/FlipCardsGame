@@ -9,6 +9,43 @@
         MinHeight="400" MaxHeight="400" 
         WindowStyle="None" AllowsTransparency="True" Background="Transparent"
         WindowStartupLocation="CenterScreen">
+    
+    <Window.Resources>
+        <Style x:Key="CustomButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <!-- Click Effect -->
+                <EventTrigger RoutedEvent="PreviewMouseDown">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                     To="0.5" Duration="0:0:0"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="PreviewMouseUp">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                     To="1" Duration="0:0:0"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
@@ -31,12 +68,12 @@
 
             <TextBlock x:Name="txtMessage" TextWrapping="Wrap" FontWeight="Bold" FontFamily="Segoe Print" Foreground="AliceBlue" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Center" TextAlignment="Center" Width="316" Height="189" Margin="0,42,0,0" />
 
-            <Button  BorderBrush="Transparent" Width="80" Height="30" Grid.Row="1" HorizontalAlignment="Left" Margin="80,10,0,10" Click="OKButton_Click">
+            <Button Style="{StaticResource CustomButtonStyle}" Cursor="Hand" BorderBrush="Transparent" Width="80" Height="30" Grid.Row="1" HorizontalAlignment="Left" Margin="80,10,0,10" Click="OKButton_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="/img/bgOKMessbox.png"/>
                 </Button.Background>
             </Button>
-            <Button BorderBrush="Transparent" Width="80" Height="30" Margin="250,10,70,10" Click="CancelButton_Click" Grid.Row="1">
+            <Button Style="{StaticResource CustomButtonStyle}" Cursor="Hand" BorderBrush="Transparent" Width="80" Height="30" Margin="250,10,70,10" Click="CancelButton_Click" Grid.Row="1">
                 <Button.Background>
                     <ImageBrush ImageSource="/img/bgCancelMessbox.png"/>
                 </Button.Background>

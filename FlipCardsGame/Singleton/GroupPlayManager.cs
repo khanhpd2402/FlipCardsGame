@@ -30,19 +30,12 @@ namespace FlipCardsGame.Models
                 return _instance;
             }
         }
-        public GroupPlay GetGroupByName(string groupName)
+        public GroupPlay? GetGroupByName(string groupName)
         {
-            if (CurrentGroup.GroupName == groupName)
-            {
-                return CurrentGroup;
-            }
-            else if (NewGroup.GroupName == groupName)
-            {
-                return NewGroup;
-            }
-            return null; // Hoặc trả về danh sách các nhóm khác nếu có nhiều nhóm
-        }
 
+            return InitialData.Groups.FirstOrDefault(x => x.GroupName.Equals(groupName));
+        }
+       
         // Phương thức để thiết lập thông tin nhóm chơi
         public void SetCurrentGroup(GroupPlay groupPlay)
         {

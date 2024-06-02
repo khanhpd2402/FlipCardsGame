@@ -9,17 +9,52 @@
         MinHeight="650" MaxHeight="650" 
         WindowStyle="None" AllowsTransparency="True" Background="Transparent"
         WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style x:Key="CustomButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <!-- Click Effect -->
+                <EventTrigger RoutedEvent="PreviewMouseDown">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                     To="0.5" Duration="0:0:0"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="PreviewMouseUp">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                     To="1" Duration="0:0:0"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="150"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
+       
         <Grid Grid.Row="0">
             <Image Source="/img/bgBannerWin.png" Margin="-68,0,-68,35"/>
             <Label x:Name="lbGrName" FontSize="45" FontWeight="Bold" FontFamily="Chiller" Foreground="Gold" Margin="160,32,90,10"></Label>
             <Image Source="/img/bgphaochucmung4.png"  RenderTransformOrigin="0.327,0.39"/>
-
+            
         </Grid>
 
         <Grid Grid.Row="1">
@@ -49,7 +84,7 @@
             <Image Source="/img/bgphaochucmung2.png" Margin="-9,264,294,14" Grid.ColumnSpan="3"/>
             <Image Source="/img/bgphaochucmung2.png" Margin="187,118,25,265" RenderTransformOrigin="0.327,0.39" Grid.Column="2"/>
             <Image Source="/img/bgphaochucmung5.png" Margin="117,-53,95,415" RenderTransformOrigin="0.327,0.39" Grid.ColumnSpan="3"/>
-            <Image Source="/img/bgphaochucmung3.png" Margin="117,306,-35,-18" RenderTransformOrigin="0.327,0.39" Grid.Column="2" Grid.RowSpan="2">
+            <Image Source="/img/bgphaochucmung3.png" Margin="107,306,-25,5" RenderTransformOrigin="0.327,0.39" Grid.Column="2">
                 <Image.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -60,5 +95,10 @@
                 </Image.RenderTransform>
             </Image>
         </Grid>
+        <Button x:Name="btnClose" Style="{StaticResource CustomButtonStyle}" BorderBrush="Transparent"  Cursor="Hand"  Click="btnClose_Click" Height="30" Margin="552,460,0,10" Grid.Row="1"  >
+            <Button.Background>
+                <ImageBrush ImageSource="/img/close.png"/>
+            </Button.Background>
+        </Button>
     </Grid>
 </Window>
