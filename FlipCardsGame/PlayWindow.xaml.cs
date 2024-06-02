@@ -131,9 +131,7 @@ namespace FlipCardsGame
                var question = QuestionManager.Instance.GetRandomQuestion();
                 if (question == null)
                 {
-                    MessageBox.Show("Xin Chúc Mừng Nhóm", "Thông báo");
-                    //mo man hinh chuc mung                   
-                    WinnerWindow.ShowWinner(GetHighestScoringGroup());
+                    WinnerWindow.ShowWinner(InitialData.GetHighestScoringGroup());
                     return;
                 }
             }
@@ -161,10 +159,7 @@ namespace FlipCardsGame
             fadeOutAnimation.Completed += (s, evt) => this.Close();
             this.BeginAnimation(Window.OpacityProperty, fadeOutAnimation);
         }
-        public GroupPlay? GetHighestScoringGroup()
-        {
-            return InitialData.Groups.OrderByDescending(g => g.Score).FirstOrDefault();
-        }
+       
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {

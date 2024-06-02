@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Media.Animation;
 using FlipCardsGame.Models;
+using System.Numerics;
+using System.Text.RegularExpressions;
+
 namespace FlipCardsGame
 {
     /// <summary>
@@ -21,7 +24,8 @@ namespace FlipCardsGame
     public partial class LuckyChanceWindow : Window
     {
         private readonly QuizGameDBContext _context;
-
+        GroupPlay? _group;
+        Challenge? _challenge;
         public LuckyChanceWindow(QuizGameDBContext context)
         {
             InitializeComponent();
@@ -56,6 +60,8 @@ namespace FlipCardsGame
             fadeInAnimation.Completed += FadeInAnimation_Completed;
             fadeInAnimation.Begin(imgChestOpen);
             btnContinue.Visibility = Visibility.Visible;
+            btnItemShow.Visibility = Visibility.Visible;
+            btnGrShow.Visibility = Visibility.Visible;
         }
 
         private void FadeInAnimation_Completed(object sender, EventArgs e)
@@ -65,67 +71,65 @@ namespace FlipCardsGame
             fadeInAnimation.Completed -= FadeInAnimation_Completed;
 
             // Get a random challenge
-            var challenge = GetRandomChallenge();
-            if (challenge != null)
-            {
-                HandleReward(challenge.ChallengeType);
-                txtChallenge.Text = challenge.Content;
-                grChallenge.Visibility = Visibility.Visible;
+            _challenge = GetRandomChallenge();
+            HandleReward(_challenge.ChallengeType);
+            txtChallenge.Text = _challenge.Content;
+            grChallenge.Visibility = Visibility.Visible;
 
-                // Start fade-in animation for the challenge text
-                var challengeFadeIn = new DoubleAnimation(0.0, 1.0, TimeSpan.FromSeconds(1));
-                txtChallenge.BeginAnimation(OpacityProperty, challengeFadeIn);
-            }
+            // Start fade-in animation for the challenge text
+            var challengeFadeIn = new DoubleAnimation(0.0, 1.0, TimeSpan.FromSeconds(1));
+            txtChallenge.BeginAnimation(OpacityProperty, challengeFadeIn);
         }
+
         private void HandleReward(string challengeType)
         {
             // Hiển thị hình ảnh phần thưởng tương ứng với loại phần thưởng
             switch (challengeType.ToLower())
             {
                 case "shield":
-                    imgitem.Visibility = Visibility.Visible;
+                    shield.Visibility = Visibility.Visible;
                     break;
                 case "box":
-                    imgitem2.Visibility = Visibility.Visible;
+                    box.Visibility = Visibility.Visible;
                     break;
                 case "crown":
-                    imgitem3.Visibility = Visibility.Visible;
+                    crown.Visibility = Visibility.Visible;
                     break;
                 case "star":
-                    imgitem4.Visibility = Visibility.Visible;
+                    star.Visibility = Visibility.Visible;
                     break;
                 case "magnet":
-                    imgitem5.Visibility = Visibility.Visible;
+                    magnet.Visibility = Visibility.Visible;
                     break;
                 case "money":
-                    imgitem6.Visibility = Visibility.Visible;
+                    money.Visibility = Visibility.Visible;
                     break;
                 case "spear":
-                    imgitem7.Visibility = Visibility.Visible;
+                    spear.Visibility = Visibility.Visible;
                     break;
                 case "sword":
-                    imgitem8.Visibility = Visibility.Visible;
+                    sword.Visibility = Visibility.Visible;
                     break;
                 case "coins":
-                    imgitem9.Visibility = Visibility.Visible;
+                    coins.Visibility = Visibility.Visible;
                     break;
                 case "bomb":
-                    imgitem10.Visibility = Visibility.Visible;
+                    bomb.Visibility = Visibility.Visible;
                     break;
                 case "potion":
-                    imgitem11.Visibility = Visibility.Visible;
+                    potion.Visibility = Visibility.Visible;
                     break;
                 case "card":
-                    imgitem12.Visibility = Visibility.Visible;
+                    card.Visibility = Visibility.Visible;
                     break;
                 case "clock":
-                    imgitem13.Visibility = Visibility.Visible;
+                    clock.Visibility = Visibility.Visible;
                     break;
                 case "diamond":
-                    imgitem14.Visibility = Visibility.Visible;
+                    diamond.Visibility = Visibility.Visible;
                     break;
                 case "coin":
-                    imgitem15.Visibility = Visibility.Visible;
+                    coin.Visibility = Visibility.Visible;
                     break;
                 default:
                     break;
@@ -133,8 +137,79 @@ namespace FlipCardsGame
         }
         private void btnContinue_Click(object sender, RoutedEventArgs e)
         {
+            // Lấy ra nhóm chơi
+            var groupLucky = GroupPlayManager.Instance.NewGroup;
+            if (groupLucky == null || string.IsNullOrWhiteSpace(groupLucky.GroupName))
+            {
+                groupLucky = GroupPlayManager.Instance.CurrentGroup;
+            }
+
+            // Xử lý điểm
+            if (_challenge != null)
+            {
+                // Hiển thị điểm trước khi thay đổi
+                MessageBox.Show($"Before: Current Group Score: {GroupPlayManager.Instance.CurrentGroup.Score}, New Group Score: {GroupPlayManager.Instance.NewGroup?.Score}");
+
+                string challengeType = _challenge.ChallengeType.ToLower(); // Đảm bảo không phân biệt hoa thường
+
+                if (challengeType == "coin" || challengeType == "coins" || challengeType == "diamond")
+                {
+                    HandScore.AddPoints(groupLucky.GroupName, _challenge.ChallengeValue);
+                }
+                else if (challengeType == "spear")
+                {
+                    HandScore.SubtractPoints(groupLucky.GroupName, _challenge.ChallengeValue);
+                }
+                else if (challengeType == "box")
+                {
+                    if (_group != null)
+                        HandScore.TransferPointsBetweenTeams(_group.GroupName, groupLucky.GroupName, _challenge.ChallengeValue);
+                }
+                else if (challengeType == "crown" || challengeType == "magnet")
+                {
+                    if (_group != null)
+                        HandScore.TransferPointsBetweenTeams(groupLucky.GroupName, _group.GroupName, _challenge.ChallengeValue);
+                }
+                else if (challengeType == "card")
+                {
+                    var toGroup = InitialData.GetHighestScoringGroup();
+                    var temp = toGroup.Score;
+                    toGroup.Score = groupLucky.Score;
+                    groupLucky.Score = temp;
+                }
+
+                // Hiển thị điểm sau khi thay đổi
+                MessageBox.Show($"After: Current Group Score: {GroupPlayManager.Instance.CurrentGroup.Score}, New Group Score: {GroupPlayManager.Instance.NewGroup?.Score}");
+            }
+
             this.Close();
+
+            // Mở PlayWindow
+            PlayWindow window = new PlayWindow(_context);
+            window.Loaded += (s, evt) =>
+            {
+                DoubleAnimation fadeInAnimation = new DoubleAnimation
+                {
+                    From = 0,
+                    To = 1,
+                    Duration = TimeSpan.FromSeconds(1.5)
+                };
+                (s as Window).BeginAnimation(Window.OpacityProperty, fadeInAnimation);
+            };
+
+            window.Show();
+
+            DoubleAnimation fadeOutAnimation = new DoubleAnimation
+            {
+                From = 1,
+                To = 0,
+                Duration = TimeSpan.FromSeconds(1)
+            };
+            fadeOutAnimation.Completed += (s, evt) => this.Close();
+            this.BeginAnimation(Window.OpacityProperty, fadeOutAnimation);
         }
+
+
         public Challenge GetRandomChallenge()
         {
             var random = new Random();
@@ -151,6 +226,120 @@ namespace FlipCardsGame
                 if (randomChallenge != null)
                 {
                     return randomChallenge;
+                }
+            }
+        }
+
+        private void btnItemShow_Click(object sender, RoutedEventArgs e)
+        {
+            if (btnitemSaved1.Visibility == Visibility.Hidden && btnitemSaved2.Visibility == Visibility.Hidden)
+            {
+                btnitemSaved1.Visibility = Visibility.Visible;
+            }
+            else if (btnitemSaved1.Visibility == Visibility.Visible && btnitemSaved2.Visibility == Visibility.Hidden)
+            {
+                btnitemSaved1.Visibility = Visibility.Hidden;
+                btnitemSaved2.Visibility = Visibility.Visible;
+            }
+            else if (btnitemSaved1.Visibility == Visibility.Hidden && btnitemSaved2.Visibility == Visibility.Visible)
+            {
+                btnitemSaved1.Visibility = Visibility.Hidden;
+                btnitemSaved2.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void btnitemSaved2_Click(object sender, RoutedEventArgs e)
+        {
+            if (_challenge != null && _challenge.ChallengeType.Equals("magnet"))
+            {
+                //lay ra gr choi
+                var groupLucky = GroupPlayManager.Instance.NewGroup;
+                if (groupLucky == null || string.IsNullOrWhiteSpace(groupLucky.GroupName))
+                {
+                    groupLucky = GroupPlayManager.Instance.CurrentGroup;
+                }
+                HandScore.AddPoints(groupLucky.GroupName, _challenge.ChallengeValue);
+            }
+            this.Close();
+        }
+
+        private void btnitemSaved1_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnGr_Click(object sender, RoutedEventArgs e)
+        {
+            //bat su kien xem button nao click
+            Button clickedButton = sender as Button;
+            if (clickedButton == null)
+                return;
+
+            Label associatedLabel = null;
+
+            switch (clickedButton.Name)
+            {
+                case "btnGr1":
+                    associatedLabel = labelGr1;
+                    break;
+                case "btnGr2":
+                    associatedLabel = labelGr2;
+                    break;
+                case "btnGr3":
+                    associatedLabel = labelGr3;
+                    break;
+                case "btnGr4":
+                    associatedLabel = labelGr4;
+                    break;
+                case "btnGr5":
+                    associatedLabel = labelGr5;
+                    break;
+                default:
+                    return;
+            }
+            //handle set group play
+            var grName = associatedLabel.Content.ToString();
+            _group = GroupPlayManager.Instance.GetGroupByName(grName);
+            grGr.Visibility = Visibility.Hidden;
+        }
+
+        private void btnGrShow_Click(object sender, RoutedEventArgs e)
+        {
+            if (grGr.Visibility == Visibility.Hidden)
+            {
+                HandleGroup();
+                grGr.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                grGr.Visibility = Visibility.Hidden;
+            }
+        }
+        private void HandleGroup()
+        {
+            var groupPlay = GroupPlayManager.Instance.NewGroup;
+            if (groupPlay == null)
+            {
+                groupPlay = GroupPlayManager.Instance.CurrentGroup;
+            }
+            if (groupPlay != null)
+            {
+                for (int i = 1; i <= 5; i++)
+                {
+                    var label = (Label)FindName($"labelGr{i}");
+                    var button = (Button)FindName($"btnGr{i}");
+
+                    if (label != null && button != null)
+                    {
+                        switch (label.Content)
+                        {
+                            case var groupName when groupName.Equals(groupPlay.GroupName):
+                                button.Visibility = Visibility.Hidden;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                 }
             }
         }

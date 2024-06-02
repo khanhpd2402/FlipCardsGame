@@ -31,7 +31,7 @@ namespace FlipCardsGame
         {
             InitializeComponent();
             InitializeTimer();
-            _context = context;       
+            _context = context;
             HandGroupName();
         }
 
@@ -91,7 +91,7 @@ namespace FlipCardsGame
         public void HandGroupName()
         {
             var groupPlay = GroupPlayManager.Instance.CurrentGroup;
-            var newGroupPlay = GroupPlayManager.Instance.NewtGroup;
+            var newGroupPlay = GroupPlayManager.Instance.NewGroup;
             // Kiểm tra nếu newGroupPlay có giá trị hợp lệ
             if (newGroupPlay != null && !string.IsNullOrWhiteSpace(newGroupPlay.GroupName))
             {
@@ -202,29 +202,7 @@ namespace FlipCardsGame
         private void btnContinue_Click(object sender, RoutedEventArgs e)
         {
             QuestionManager.Instance.RemoveQuestion(QuestionManager.Instance.GetCurrentQuestion());
-            //mo playwindow
-            PlayWindow window = new PlayWindow(_context);
-            window.Loaded += (s, evt) =>
-            {
-                DoubleAnimation fadeInAnimation = new DoubleAnimation
-                {
-                    From = 0,
-                    To = 1,
-                    Duration = TimeSpan.FromSeconds(1.5)
-                };
-                (s as Window).BeginAnimation(Window.OpacityProperty, fadeInAnimation);
-            };
 
-            window.Show();
-
-            DoubleAnimation fadeOutAnimation = new DoubleAnimation
-            {
-                From = 1,
-                To = 0,
-                Duration = TimeSpan.FromSeconds(1)
-            };
-            fadeOutAnimation.Completed += (s, evt) => this.Close();
-            this.BeginAnimation(Window.OpacityProperty, fadeOutAnimation);
             //mo chest
             LuckyChanceWindow.ShowChest(_context);
         }
@@ -232,7 +210,7 @@ namespace FlipCardsGame
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
             bool result = CustomMessageBox.Show("Bạn chắc chưa :))?");
-
+            var newGroupPlay = GroupPlayManager.Instance.NewGroup;
             if (result)
             {
                 string selectedAnswer = "";
@@ -261,43 +239,51 @@ namespace FlipCardsGame
                 var currentQuestion = QuestionManager.Instance.GetCurrentQuestion(); // Giả sử bạn có phương thức này để lấy câu hỏi hiện tại
                 if (currentQuestion != null)
                 {
-                    if (selectedAnswer.Equals(currentQuestion.AnswerCorrect))
+                    bool isCorrect = selectedAnswer.Equals(currentQuestion.AnswerCorrect);
+
+                    if (isCorrect)
                     {
                         clickedButton.BorderBrush = Brushes.Green;
                         clickedButton.BorderThickness = new Thickness(10);
-                        //neu nhom dau tien tra loi dung
-                        if(GroupPlayManager.Instance.NewtGroup == null)
+
+                        // Nhóm đầu tiên trả lời đúng
+                        if (newGroupPlay == null || string.IsNullOrWhiteSpace(newGroupPlay.GroupName))
                         {
-                            GroupPlayManager.Instance.UpdateScoreCurrentGroup(GroupPlayManager.Instance.CurrentGroup.Score + 10);
+                            GroupPlayManager.Instance.UpdateScoreCurrentGroup(10);
+                            MessageBox.Show(GroupPlayManager.Instance.CurrentGroup.Score + " current");
                         }
-                        //neu nhom dau tien tra loi sai va nhom thu 2 tra loi sai  
-                        else if (GroupPlayManager.Instance.NewtGroup != null)
+                        // Nhóm thứ hai trả lời đúng
+                        else
                         {
-                            GroupPlayManager.Instance.UpdateScoreNewGroup(GroupPlayManager.Instance.CurrentGroup.Score + 10);
-                            GroupPlayManager.Instance.UpdateScoreCurrentGroup(GroupPlayManager.Instance.CurrentGroup.Score - 10);
+                            GroupPlayManager.Instance.UpdateScoreNewGroup(10);
+                            MessageBox.Show(GroupPlayManager.Instance.NewGroup.Score + " new");
                         }
-                        this.HandGroupName();
-                            this.Show();
                     }
                     else
                     {
                         clickedButton.BorderBrush = Brushes.Red;
                         clickedButton.BorderThickness = new Thickness(10);
-                        //neu nhom dau tien tra loi sai
-                        if (GroupPlayManager.Instance.NewtGroup == null)
+
+                        // Nhóm đầu tiên trả lời sai
+                        if (newGroupPlay == null || string.IsNullOrWhiteSpace(newGroupPlay.GroupName))
                         {
-                            GroupPlayManager.Instance.UpdateScoreCurrentGroup(GroupPlayManager.Instance.CurrentGroup.Score - 10);
+                            GroupPlayManager.Instance.UpdateScoreCurrentGroup(-10);
+                            MessageBox.Show(GroupPlayManager.Instance.CurrentGroup.Score + " current");
                         }
-                        //neu nhom thw hai tra loi sai
-                        else if (GroupPlayManager.Instance.NewtGroup != null)
+                        // Nhóm thứ hai trả lời sai
+                        else
                         {
-                            GroupPlayManager.Instance.UpdateScoreNewGroup(GroupPlayManager.Instance.CurrentGroup.Score - 20);
+                            GroupPlayManager.Instance.UpdateScoreCurrentGroup(10);
+                            MessageBox.Show(GroupPlayManager.Instance.CurrentGroup.Score + " current");
+                            GroupPlayManager.Instance.UpdateScoreNewGroup(-20);
+                            MessageBox.Show(GroupPlayManager.Instance.NewGroup.Score + " new");
                         }
-                        this.HandGroupName();
-                        this.Show();
                     }
-                    }
+
+                    this.HandGroupName();
+                    this.Show();
                 }
             }
         }
     }
+}

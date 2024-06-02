@@ -41,21 +41,21 @@
         <Image x:Name="imgChestOpen" Source="img/chest_open.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="356" Height="449" Margin="268,0,0,0" Visibility="Hidden" Opacity="0.0" />
 
         <!-- Image of the item -->
-        <Image x:Name="imgitem" Source="img/shield.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" Height="95" Margin="361,216,0,0" Visibility="Hidden"/>
-        <Image x:Name="imgitem2" Source="img/box.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="97" Height="76" Margin="361,219,0,0" Visibility="Hidden" />
-        <Image x:Name="imgitem3" Source="img/crown.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="95" Height="70" Margin="361,205,0,0" Visibility="Hidden"/>
-        <Image x:Name="imgitem4" Source="img/star.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="86" Height="86" Margin="370,187,0,0" Visibility="Hidden"/>
-        <Image x:Name="imgitem5" Source="img/magnet.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="86" Height="73" Margin="367,205,0,0" Visibility="Hidden"/>
-        <Image x:Name="imgitem6" Source="img/money.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" Height="95" Margin="367,178,0,0" Visibility="Hidden"/>
-        <Image x:Name="imgitem7" Source="img/spear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" Height="95" Margin="385,170,0,0" Visibility="Hidden"/>
-        <Image x:Name="imgitem8" Source="img/sword.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" Height="95" Margin="361,201,0,0" Visibility="Hidden"/>
-        <Image x:Name="imgitem9" Source="img/coins.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="87" Height="111" Margin="366,190,0,0" Visibility="Hidden"/>
-        <Image x:Name="imgitem10" Source="img/bomb.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="62" Height="95" Margin="367,181,0,0" Visibility="Hidden"/>
-        <Image x:Name="imgitem11" Source="img/potion.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="62" Height="95" Margin="373,185,0,0" Visibility="Hidden"/>
-        <Image x:Name="imgitem12" Source="img/card.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" Height="101" Margin="361,194,0,0" Visibility="Hidden"/>
-        <Image x:Name="imgitem13" Source="img/clock.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Height="89" Margin="364,196,0,0" Visibility="Hidden" />
-        <Image x:Name="imgitem14" Source="img/diamond.png" HorizontalAlignment="Center" VerticalAlignment="Top" Width="62" Height="56" Margin="0,214,0,0" Visibility="Hidden"/>
-        <Image x:Name="imgitem15" Source="img/coin.png" HorizontalAlignment="Center" VerticalAlignment="Top" Width="68" Height="86" Margin="0,207,0,0" Visibility="Hidden"/>
+        <Image x:Name="shield" Source="img/shield.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" Height="95" Margin="361,216,0,0" Visibility="Hidden"/>
+        <Image x:Name="box" Source="img/box.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="97" Height="76" Margin="361,219,0,0" Visibility="Hidden" />
+        <Image x:Name="crown" Source="img/crown.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="95" Height="70" Margin="361,205,0,0" Visibility="Hidden"/>
+        <Image x:Name="star" Source="img/star.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="86" Height="86" Margin="370,187,0,0" Visibility="Hidden"/>
+        <Image x:Name="magnet" Source="img/magnet.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="86" Height="73" Margin="367,205,0,0" Visibility="Hidden"/>
+        <Image x:Name="money" Source="img/money.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" Height="95" Margin="367,178,0,0" Visibility="Hidden"/>
+        <Image x:Name="spear" Source="img/spear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" Height="95" Margin="385,170,0,0" Visibility="Hidden"/>
+        <Image x:Name="sword" Source="img/sword.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" Height="95" Margin="361,201,0,0" Visibility="Hidden"/>
+        <Image x:Name="coins" Source="img/coins.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="87" Height="111" Margin="366,190,0,0" Visibility="Hidden"/>
+        <Image x:Name="bomb" Source="img/bomb.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="62" Height="95" Margin="367,181,0,0" Visibility="Hidden"/>
+        <Image x:Name="potion" Source="img/potion.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="62" Height="95" Margin="373,185,0,0" Visibility="Hidden"/>
+        <Image x:Name="card" Source="img/card.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" Height="101" Margin="361,194,0,0" Visibility="Hidden"/>
+        <Image x:Name="clock" Source="img/clock.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Height="89" Margin="364,196,0,0" Visibility="Hidden" />
+        <Image x:Name="diamond" Source="img/diamond.png" HorizontalAlignment="Center" VerticalAlignment="Top" Width="62" Height="56" Margin="0,214,0,0" Visibility="Hidden"/>
+        <Image x:Name="coin" Source="img/coin.png" HorizontalAlignment="Center" VerticalAlignment="Top" Width="68" Height="86" Margin="0,207,0,0" Visibility="Hidden"/>
 
         <Grid Margin="10,0,465,310" Name="grChallenge" Visibility="Hidden">
             <Grid.Background>
@@ -78,5 +78,71 @@
             </Button.Background>
             <Label x:Name="labeContinue" FontSize="45" FontWeight="Bold" FontFamily="Chiller" Foreground="AliceBlue" Width="141">Continue</Label>
         </Button>
+        <!--btn item-->
+        <Button x:Name="btnitemSaved1" Cursor="Hand"  BorderBrush="Transparent" Visibility="Hidden"  Margin="696,400,16,105" Click="btnitemSaved1_Click" Width="88" Height="95">
+            <Button.Background>
+                <ImageBrush ImageSource="img/sword.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="btnitemSaved2" Visibility="Hidden" Cursor="Hand" BorderBrush="Transparent"  Margin="705,400,25,105" Click="btnitemSaved2_Click" Width="70" Height="95">
+            <Button.Background>
+                <ImageBrush ImageSource="img/potion.png"/>
+            </Button.Background>
+        </Button>
+
+        <Button x:Name="btnItemShow" Visibility="Hidden" Cursor="Hand" BorderBrush="Transparent" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="680,519,0,0" Click="btnItemShow_Click" Width="120" Height="81">
+            <Button.Background>
+                <ImageBrush ImageSource="img/btnMainBg.png"/>
+            </Button.Background>
+            <Label x:Name="labeItemShow" FontSize="45" FontWeight="Bold" FontFamily="Chiller" Foreground="AliceBlue" Width="79">Item</Label>
+        </Button>
+        <Button x:Name="btnGrShow" Visibility="Hidden" Cursor="Hand" BorderBrush="Transparent" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,519,0,0" Click="btnGrShow_Click" Width="120" Height="81">
+            <Button.Background>
+                <ImageBrush ImageSource="img/btnMainBg.png"/>
+            </Button.Background>
+            <Label x:Name="labeGrShow" FontSize="45" FontWeight="Bold" FontFamily="Chiller" Foreground="AliceBlue" Width="79">Group</Label>
+        </Button>
+        <!-- choose gr-->
+        <Grid Width="400" Margin="-132,-65,532,65">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Button x:Name="btnGr1" Visibility="Hidden" Grid.Row="1" Height="98"  BorderBrush="Transparent"  Cursor="Hand"  Click="btnGr_Click" Margin="136,12,136,10" >
+                <Button.Background>
+                    <ImageBrush ImageSource="/img/bgGrName.png"/>
+                </Button.Background>
+                <Label x:Name="labelGr1" FontSize="40" FontWeight="Bold" FontFamily="Chiller" Foreground="Wheat" Height="62" Width="119" Content="Nhóm 1"/>
+            </Button>
+            <Button x:Name="btnGr2" Visibility="Hidden" Grid.Row="2" Height="98"  BorderBrush="Transparent"  Cursor="Hand"  Click="btnGr_Click" Margin="136,11,136,11" >
+                <Button.Background>
+                    <ImageBrush ImageSource="/img/bgGrName.png"/>
+                </Button.Background>
+                <Label x:Name="labelGr2" FontSize="40" FontWeight="Bold" FontFamily="Chiller" Foreground="Wheat" Height="62" Width="119" Content="Nhóm 2"/>
+            </Button>
+            <Button x:Name="btnGr3" Visibility="Hidden" Grid.Row="3" Height="98"  BorderBrush="Transparent"  Cursor="Hand"  Click="btnGr_Click" Margin="136,10,136,12" >
+                <Button.Background>
+                    <ImageBrush ImageSource="/img/bgGrName.png"/>
+                </Button.Background>
+                <Label x:Name="labelGr3" FontSize="40" FontWeight="Bold" FontFamily="Chiller" Foreground="Wheat" Height="62" Width="119" Content="Nhóm 3"/>
+            </Button>
+            <Button x:Name="btnGr4" Visibility="Hidden" Grid.Row="4" Height="98"  BorderBrush="Transparent"  Cursor="Hand"  Click="btnGr_Click" Margin="136,0,136,22" >
+                <Button.Background>
+                    <ImageBrush ImageSource="/img/bgGrName.png"/>
+                </Button.Background>
+                <Label x:Name="labelGr4" FontSize="40" FontWeight="Bold" FontFamily="Chiller" Foreground="Wheat" Height="62" Width="119" Content="Nhóm 4"/>
+            </Button>
+            <Button x:Name="btnGr5" Visibility="Hidden" Grid.Row="5" Height="98"  BorderBrush="Transparent"  Cursor="Hand"  Click="btnGr_Click" Margin="136,3,136,19" >
+                <Button.Background>
+                    <ImageBrush ImageSource="/img/bgGrName.png"/>
+                </Button.Background>
+                <Label x:Name="labelGr5" FontSize="40" FontWeight="Bold" FontFamily="Chiller" Foreground="Wheat" Height="62" Width="119" Content="Nhóm 5"/>
+            </Button>
+        </Grid>
     </Grid>
 </Window>

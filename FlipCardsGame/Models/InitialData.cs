@@ -26,22 +26,26 @@ namespace FlipCardsGame.Models
             // Initializing the challenge data with corresponding item images
             Challenges = new List<Challenge>
 {
-    new Challenge { ChallengeId = 1, Content = "You are protected from the next attack.", ChallengeType = "shield", ChallengeValue = null },
-    new Challenge { ChallengeId = 2, Content = "Receive a random reward.", ChallengeType = "box", ChallengeValue = null },
-    new Challenge { ChallengeId = 3, Content = "Receive 50 bonus points.", ChallengeType = "crown", ChallengeValue = 50 },
-    new Challenge { ChallengeId = 4, Content = "Gain an additional 20 points.", ChallengeType = "star", ChallengeValue = 20 },
-    new Challenge { ChallengeId = 5, Content = "Lose 10 points.", ChallengeType = "spear", ChallengeValue = -10 },
-    new Challenge { ChallengeId = 6, Content = "Gain an extra turn.", ChallengeType = "clock", ChallengeValue = null },
-    new Challenge { ChallengeId = 7, Content = "Lose a turn.", ChallengeType = "bomb", ChallengeValue = null },
-    new Challenge { ChallengeId = 8, Content = "Swap points with another team.", ChallengeType = "card", ChallengeValue = null },
-    new Challenge { ChallengeId = 9, Content = "Receive 30 bonus points.", ChallengeType = "coins", ChallengeValue = 30 },
-    new Challenge { ChallengeId = 10, Content = "Lose 15 points.", ChallengeType = "money", ChallengeValue = -15 },
-    new Challenge { ChallengeId = 11, Content = "Protected from a penalty.", ChallengeType = "potion", ChallengeValue = null },
-    new Challenge { ChallengeId = 12, Content = "Receive a special item.", ChallengeType = "diamond", ChallengeValue = null },
-    new Challenge { ChallengeId = 13, Content = "Gain 5 points per turn.", ChallengeType = "coin", ChallengeValue = null },
-    new Challenge { ChallengeId = 14, Content = "Lose 5 points per turn.", ChallengeType = "magnet", ChallengeValue = null },
-    new Challenge { ChallengeId = 15, Content = "Receive 100 bonus points.", ChallengeType = "crown", ChallengeValue = 100 }
+    new Challenge { ChallengeId = 1, Content = "Nhóm bạn bị mất lượt chơi tiếp theo.", ChallengeType = "shield", ChallengeValue = 0 },
+    new Challenge { ChallengeId = 2, Content = "Nhóm bạn là một nhà hảo tâm, hãy bỏ 10 xu vào hộp và quyên góp cho một nhóm bất kì.", ChallengeType = "box", ChallengeValue = 10 },
+    new Challenge { ChallengeId = 3, Content = "Vương miện nhà vua sẽ giúp bạn thu thuế của một nhóm bất kì 20 xu.", ChallengeType = "crown", ChallengeValue = 20 },
+    new Challenge { ChallengeId = 4, Content = "Bạn nhận được ngôi sao hy vọng, bạn được kiểm tra một đáp án trong lượt chơi tới. Hãy dùng nó hợp lý nhé!~~", ChallengeType = "star", ChallengeValue = 0 },
+    new Challenge { ChallengeId = 5, Content = "Hãy dùng nó và tấn công một nhóm bạn ghét. Nhóm đó sẽ bị mất 10 xu :))", ChallengeType = "spear", ChallengeValue = 0 },
+    new Challenge { ChallengeId = 6, Content = "Nhóm bạn được thêm 1 lượt chơi.", ChallengeType = "clock", ChallengeValue = 0 },
+    new Challenge { ChallengeId = 7, Content = "Hãy dùng nó và ném vào 1 nhóm bạn ghét, nhóm đó sẽ bị mất 1 lượt chơi.", ChallengeType = "bomb", ChallengeValue = 0 },
+    new Challenge { ChallengeId = 8, Content = "Thần bài sẽ giúp bạn tráo đổi trở thành người giàu nhất.", ChallengeType = "card", ChallengeValue = 0 },
+    new Challenge { ChallengeId = 9, Content = "Nhóm bạn nhận được 10 xu.", ChallengeType = "coins", ChallengeValue = 10 },
+    new Challenge { ChallengeId = 10, Content = "Nhóm bạn nhận được 1 phần quà rất giá trị từ chúng tớ ~~.", ChallengeType = "money", ChallengeValue = 0 },
+    new Challenge { ChallengeId = 11, Content = "Nó sẽ giúp bạn hồi phục sau một đợt tấn công vật lý(Bomb, Nam châm, kiếm).", ChallengeType = "potion", ChallengeValue = 0 },
+    new Challenge { ChallengeId = 12, Content = "Nhóm bạn nhận được 20 xu.", ChallengeType = "diamond", ChallengeValue = 20 },
+    new Challenge { ChallengeId = 13, Content = "Nhóm bạn nhận được 5 xu.", ChallengeType = "coin", ChallengeValue = 5 },
+    new Challenge { ChallengeId = 14, Content = "Nam châm sẽ hút 10 xu của một nhóm bất kì về cho bạn", ChallengeType = "magnet", ChallengeValue = 10 },
+    new Challenge { ChallengeId = 15, Content = "Nó sẽ bảo vệ bạn khỏi một đợt tấn công, nhưng bạn sẽ không thể tránh được bomb.", ChallengeType = "sword", ChallengeValue = 0 }
 };
+        }
+        public static GroupPlay? GetHighestScoringGroup()
+        {
+            return Groups.OrderByDescending(g => g.Score).FirstOrDefault();
         }
     }
 }

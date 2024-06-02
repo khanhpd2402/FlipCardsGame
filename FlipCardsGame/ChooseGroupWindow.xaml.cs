@@ -58,6 +58,7 @@ namespace FlipCardsGame
             ChooseGroupWindow chooseGroup = new ChooseGroupWindow(gameWindow);
             chooseGroup.ShowDialog();
         }
+       
         //chuyen window
         private void btnGr_Click(object sender, RoutedEventArgs e)
         {

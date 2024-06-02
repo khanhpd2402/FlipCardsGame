@@ -9,13 +9,13 @@ namespace FlipCardsGame.Models
 
         // Đối tượng GroupPlay duy nhất
         public GroupPlay CurrentGroup { get; private set; }
-        public GroupPlay NewtGroup { get; private set; }
+        public GroupPlay NewGroup { get; private set; }
 
         // Constructor private để ngăn không cho tạo instance từ bên ngoài
         private GroupPlayManager()
         {
             CurrentGroup = new GroupPlay();
-            NewtGroup = new GroupPlay();
+            NewGroup = new GroupPlay();
         }
 
         // Phương thức để lấy instance duy nhất của GroupPlayManager
@@ -30,6 +30,18 @@ namespace FlipCardsGame.Models
                 return _instance;
             }
         }
+        public GroupPlay GetGroupByName(string groupName)
+        {
+            if (CurrentGroup.GroupName == groupName)
+            {
+                return CurrentGroup;
+            }
+            else if (NewGroup.GroupName == groupName)
+            {
+                return NewGroup;
+            }
+            return null; // Hoặc trả về danh sách các nhóm khác nếu có nhiều nhóm
+        }
 
         // Phương thức để thiết lập thông tin nhóm chơi
         public void SetCurrentGroup(GroupPlay groupPlay)
@@ -37,7 +49,7 @@ namespace FlipCardsGame.Models
             CurrentGroup = groupPlay;
         } public void SetNewGroup(GroupPlay groupPlay)
         {
-            NewtGroup = groupPlay;
+            NewGroup = groupPlay;
         }
 
         // Phương thức để cập nhật điểm số
@@ -47,14 +59,14 @@ namespace FlipCardsGame.Models
         }
         public void UpdateScoreNewGroup(int points)
         {
-            CurrentGroup.Score += points;
+            NewGroup.Score += points;
         }
 
         // Phương thức để xóa nhóm chơi cũ
         public void ResetGroup()
         {
             CurrentGroup = new GroupPlay();
-            NewtGroup = new GroupPlay();
+            NewGroup = new GroupPlay();
         }
     }
 }

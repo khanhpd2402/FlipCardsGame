@@ -8,6 +8,6 @@ namespace FlipCardsGame.Models
         public int ChallengeId { get; set; }
         public string Content { get; set; } = null!;
         public string ChallengeType { get; set; } = null!;
-        public int? ChallengeValue { get; set; }
+        public int ChallengeValue { get; set; }
     }
 }
